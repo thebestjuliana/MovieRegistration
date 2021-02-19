@@ -1,12 +1,30 @@
-﻿@model Movie;
-    <h2>@Model.Title has been registered!</h2>
+﻿@model Movie
 
-    <p>Id: @Model.ID</p>
-    <p>Title: @Model.Title</p>
-    <p>Genre: @Model.Genre</p>
-    <p>Year: @Model.Year</p>
+<h2>@Model.Title has been registered!</h2>
+<p>Id: @Model.ID</p>
+<p>Title: @Model.Title</p>
+<p>Genre: @Model.Genre</p>
+<p>Year: @Model.Year</p>
+<p>
+    Actors:
+    @foreach (string m in Model.Actors)
+    {
+        if (!string.IsNullOrEmpty(m))
+        {
+        @m@:,
+        }
+    }
+    
+</p>
+<p>
+    Director(s):
+    @foreach (string d in Model.Directors)
+    {
+        if (!string.IsNullOrEmpty(d))
+        {
+            @d@:,
+        }
+    }
 
+</p>
 
-    <p>Actors: @Model.Actors[0] @Model.Actors[1] @Model.Actors[2] @Model.Actors[3] </p>
-
-    <p>Directors: @Model.Directors[0] @Model.Directors[1] @Model.Directors[2]</p>

@@ -31,6 +31,19 @@ namespace Lab21_MovieRegistration.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public IActionResult Registration(Movie movie)
+        {
+            if (ModelState.IsValid)
+            {
+                return RedirectToAction("Summary", movie);
+            }
+            else
+            {
+                return View();
+            }
+
+        }
 
         public IActionResult Summary(Movie m)
         {

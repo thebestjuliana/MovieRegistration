@@ -1,14 +1,24 @@
 ﻿
 <h1>Register your movie here!</h1>
-<form asp-controller="Home" asp-action="Summary">
-    <label>Id:</label>
-    <input type="number" name="ID"/>
+
+<div text="red" asp-validation-summary="All"></div>
+<form method="post">
+
+    <input type="number" name="ID" placeholder="ID" min="0" required />
     <br />
-    <label>Title:</label>
-    <input type="text" name="Title"/>
+    <input type="text" name="Title" placeholder="Title" required/>
     <br />
-    <label>Genre:</label>
-    <select name="Genre">
+    <style>
+        select:invalid {
+            color: gray;
+        }
+
+        option {
+            color: black;
+        }
+    </style>
+    <select name="Genre" required>
+        <option value="" disabled selected>--Select a Genre--</option>
         <option value="Comedy">Comedy</option>
         <option value="Horror">Horror</option>
         <option value="Romance">Romance</option>
@@ -18,23 +28,33 @@
         <option value="Adventure">Adventure</option>
         <option value="Drama">Drama</option>
         <option value="Animation">Animation</option>
+        <option value="Other">Other</option>
     </select>
     <br />
-    <label>Year:</label>
-    <input type="number" name="Year" />
-    <br />
-    <label>Actors:</label>
-    
-    <input type="text" name="Actors[]"/>
-    <input type="text" name="Actors[]"/>
-    <input type="text" name="Actors[]"/>
-    <input type="text" name="Actors[]"/>
-    
-    <br />
-    <label>Directors:</label>
-    <input type="text" name="Directors[]" />
-    <input type="text" name="Directors[]" />
-    <input type="text" name="Directors[]" />
+
+    @{ int y = DateTime.Now.Year;
+        int z = 1880;
+
+        <input type="number" name="Year" placeholder="Year" min="@z" max="@y" required/>
+        <br />
+    }
+
+    <input type="text" name="Actors[]" placeholder="Actor *Required" required pattern="(?!\s*$).+" oninvalid="setCustomValidity('Please not null')"/>
+    @{
+        for (int i = 0; i < 5; i++)
+        {
+            <input type="text" name="Actors[]" placeholder="More Actors"/>;
+
+        }
+    }
+<br />
+    <input type="text" name="Directors[]" placeholder="Director *Required"required pattern="(?!\s*$).+" />
+    @{ for (int i = 0; i < 2; i++)
+        {
+            <input type="text" name="Directors[]" placeholder="Additional Director" />
+        }
+    }
+
     <br />
     <input type="submit" />
 </form>
